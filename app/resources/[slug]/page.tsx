@@ -69,12 +69,6 @@ export default async function SingleResourcePage({ params }: { params: Promise<{
 }
 
 export async function generateStaticParams() {
-  // This function is used to pre-render all the pages at build time.
-  // You can fetch all slugs from WordPress here and return them as an array of params.
-  // For example:
-  // const { data } = await getClient().query({ query: gql`{ resources { nodes { slug } } }` });
-  // return data.resources.nodes.map((node: { slug: string }) => ({ slug: node.slug }));
-
   const { data } = await getClient().query<AllResourceSlugsData>({
     query: gql`
       query GetAllResourceSlugs {

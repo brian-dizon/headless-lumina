@@ -51,11 +51,23 @@ This document tracks the architectural decisions, milestones, and technical prog
   - Implemented **Next.js Streaming** using `<Suspense>`.
   - Created a `GridSkeleton` loader to eliminate layout shift and provide instant feedback.
 
+## ⚡ Milestone 5: Dynamic Routing & Static Optimization (SSG/ISR)
+**Goal:** Scale the application to handle unique URLs with maximum performance.
+
+- **Dynamic Segments:**
+  - Created `app/resources/[slug]/page.tsx` using Next.js 15 `params` (Promise-based).
+- **Static Site Generation (SSG):**
+  - Implemented `generateStaticParams` to pre-render all resource pages at build time.
+- **Incremental Static Regeneration (ISR):**
+  - Configured `apollo-client.ts` with `next.revalidate` to ensure stale content is updated without a full rebuild.
+- **Enterprise Typography:**
+  - Integrated `@tailwindcss/typography` (`prose`) to render styled WordPress HTML safely and beautifully.
+
 ---
 
 ## 🅿️ Parking Lot (Future Tasks)
 - [ ] **Pagination/Load More:** Handling large datasets in the Resource Grid.
-- [ ] **Dynamic Routing:** Building `/resource/[slug]` detail pages.
-- [ ] **ISR (Incremental Static Regeneration):** Live updates without rebuilds.
+- [ ] **Block-to-Component Pipeline:** Mapping Gutenberg/ACF blocks to React components.
 - [ ] **Search & Filtering:** Real-time client-side queries.
 - [ ] **Gated Content:** Integration with Clerk for "Premium" resources.
+- [ ] **Next.js Draft Mode:** Live previews for WordPress editors.
