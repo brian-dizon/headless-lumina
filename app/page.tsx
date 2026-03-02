@@ -15,7 +15,7 @@ function GridSkeleton() {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-slate-50/50">
+    <main className="min-h-screen">
       <div className="container mx-auto py-16 px-4 max-w-7xl">
         
         {/* Static Header: Renders immediately */}

@@ -125,3 +125,13 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Global Transition Fix for Theme Switching */
+html, body, * {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, text-decoration-color 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+}
+
+/* Ensure the transition doesn't apply to everything during the initial page load */
+.no-transition * {
+  transition: none !important;
+}

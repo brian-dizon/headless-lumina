@@ -5,69 +5,44 @@ This document tracks the architectural decisions, milestones, and technical prog
 ---
 
 ## 🚀 Milestone 1: Data Modeling & Schema Architecture
-**Goal:** Shift from "Page Building" to "Content Modeling" using WordPress as a Headless CMS.
-
-- **WordPress Configuration:**
-  - Registered **Resources** (CPT) for core content.
-  - Registered **Experts** (CPT) to handle relational author data.
-  - Registered **Topics** (Custom Taxonomy) for categorization.
-- **ACF Pro Integration:**
-  - Created "Resource Details" and "Expert Profile" field groups.
-  - Implemented **Relationship Fields** to link multiple Experts to a single Resource.
-- **API Contract:**
-  - Enabled **WPGraphQL** for all CPTs and Taxonomies.
-  - Verified complex relational queries in GraphiQL IDE (handling nodes, fragments, and media connections).
+- Registered **Resources**, **Experts**, and **Topics**.
+- Implemented **ACF Relationship Fields**.
+- Verified WPGraphQL schema.
 
 ## 🌉 Milestone 2: The Next.js Apollo Bridge
-**Goal:** Establish a type-safe connection between Next.js 15 and WordPress.
-
-- **Frontend Initialization:**
-  - Scaffolded Next.js 15 with TypeScript, Tailwind CSS (v4), and Shadcn/UI.
-- **Apollo Client Singleton:**
-  - Created `lib/apollo-client.ts` to handle Server-Side requests.
-  - Implemented an endpoint "Sanity Check" to ensure URL consistency (`/graphql` suffix).
-- **Data Fetching:**
-  - Implemented the first **Server Component** fetch in `app/page.tsx`.
-  - Defined TypeScript interfaces (`ResourceNode`, `GetResourcesData`) to ensure data integrity from the CMS.
+- Scaffolded Next.js 15 with TypeScript and Tailwind CSS (v4).
+- Created `lib/apollo-client.ts` with Server-Side request handling.
 
 ## 🎨 Milestone 3: Enterprise UI & Component Architecture
-**Goal:** Build a professional, reusable design system using atomic components.
-
-- **Shadcn/UI Integration:**
-  - Added Card, Badge, and Avatar primitives.
-  - Resolved Tailwind v4 `@import` conflicts in `globals.css`.
-- **Advanced Component Logic:**
-  - Developed `ResourceCard.tsx` with **Expert Stacking**.
-  - Implemented a **"+N" Indicator** for resources with 3+ contributors.
-  - Configured `next.config.ts` for secure remote image fetching from WordPress.
+- Integrated Shadcn/UI (Card, Badge, Avatar).
+- Built `ResourceCard.tsx` with **Expert Stacking** and **+N Indicators**.
+- Configured secure remote image fetching in `next.config.ts`.
 
 ## 🏗️ Milestone 4: Clean Architecture & Streaming
-**Goal:** Apply SOLID principles (SRP) and optimize perceived performance.
-
-- **Refactoring (SRP):**
-  - Moved components into specialized directories: `global/` and `resources/`.
-  - Decentralized data fetching: Moved the GraphQL query into `ResourceGrid.tsx`.
-- **Performance Optimization:**
-  - Implemented **Next.js Streaming** using `<Suspense>`.
-  - Created a `GridSkeleton` loader to eliminate layout shift and provide instant feedback.
+- Refactored components into `global/` and `resources/`.
+- Decentralized data fetching into `ResourceGrid.tsx`.
+- Implemented **Next.js Streaming** via `<Suspense>`.
 
 ## ⚡ Milestone 5: Dynamic Routing & Static Optimization (SSG/ISR)
-**Goal:** Scale the application to handle unique URLs with maximum performance.
+- Created `app/resources/[slug]/page.tsx` with `generateStaticParams`.
+- Configured **ISR (Revalidation)** in `apollo-client.ts`.
+- Integrated `@tailwindcss/typography` for beautiful WordPress content rendering.
 
-- **Dynamic Segments:**
-  - Created `app/resources/[slug]/page.tsx` using Next.js 15 `params` (Promise-based).
-- **Static Site Generation (SSG):**
-  - Implemented `generateStaticParams` to pre-render all resource pages at build time.
-- **Incremental Static Regeneration (ISR):**
-  - Configured `apollo-client.ts` with `next.revalidate` to ensure stale content is updated without a full rebuild.
-- **Enterprise Typography:**
-  - Integrated `@tailwindcss/typography` (`prose`) to render styled WordPress HTML safely and beautifully.
+## 🎭 Milestone 6: Global Branding & Theme Control
+- Implemented sticky `Navbar.tsx` and high-performance `Logo.tsx`.
+- Added **Single-Click Dark Mode Toggle** with smooth CSS transitions (`0.4s fade`).
+- Applied `dark:prose-invert` for readability in dark mode.
+
+## 🏷️ Milestone 7: Static Taxonomy (Topic) Pages
+- Implemented the **"Link Overlay" Pattern** in `ResourceCard.tsx` for nested links (Resources vs. Topics).
+- Created `app/topic/[slug]/page.tsx` to handle dynamic topic archives.
+- Implemented `generateStaticParams` for pre-rendering all topic pages.
 
 ---
 
 ## 🅿️ Parking Lot (Future Tasks)
+- [ ] **Expert Hub:** List of all experts and individual profile pages.
 - [ ] **Pagination/Load More:** Handling large datasets in the Resource Grid.
 - [ ] **Block-to-Component Pipeline:** Mapping Gutenberg/ACF blocks to React components.
 - [ ] **Search & Filtering:** Real-time client-side queries.
 - [ ] **Gated Content:** Integration with Clerk for "Premium" resources.
-- [ ] **Next.js Draft Mode:** Live previews for WordPress editors.
