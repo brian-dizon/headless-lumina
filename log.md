@@ -31,12 +31,19 @@ This document tracks the architectural decisions, milestones, and technical prog
 ## 🎭 Milestone 6: Global Branding & Theme Control
 - Implemented sticky `Navbar.tsx` and high-performance `Logo.tsx`.
 - Added **Single-Click Dark Mode Toggle** with smooth CSS transitions (`0.4s fade`).
-- Applied `dark:prose-invert` for readability in dark mode.
+- Resolved `prose` readability with `dark:prose-invert`.
+- Fixed `ThemeProvider` animation blocking by removing `disableTransitionOnChange`.
 
 ## 🏷️ Milestone 7: Static Taxonomy (Topic) Pages
 - Implemented the **"Link Overlay" Pattern** in `ResourceCard.tsx` for nested links (Resources vs. Topics).
 - Created `app/topic/[slug]/page.tsx` to handle dynamic topic archives.
 - Implemented `generateStaticParams` for pre-rendering all topic pages.
+
+## 🏙️ Milestone 8: Full Hub Architecture & Mobile UX
+- **Refactoring**: Migrated full resource grid to `/resources` and transformed `/` into a high-end corporate landing page.
+- **Hero Section**: Implemented a responsive grid with a 600x600px tech illustration.
+- **Mobile Navigation**: Added a slide-out `MobileNav.tsx` using Shadcn/UI's `Sheet` component.
+- **UX Polish**: Optimized hero illustration ordering (Text -> Image -> Buttons) for mobile devices.
 
 ---
 
