@@ -20,21 +20,17 @@ const GET_ALL_CONTEXT = gql`
  */
 export async function getWordPressContext() {
   try {
-    const { data } = await getClient().query({ query: GET_ALL_CONTEXT });
+    const { data } = await getClient().query<{ resources: { nodes: { title: string; slug: string; content: string }[] } }>({ 
+      query: GET_ALL_CONTEXT 
+    });
     const resources = data?.resources?.nodes || [];
 
     return resources
-      .map((r: any) => {
+      .map((r: { title: string; slug: string; content: string }) => {
         const cleanContent = r.content.replace(/<[^>]*>?/gm, "").slice(0, 1500);
-        return `RESOURCE: ${r.title}
-URL: /resources/${r.slug}
-CONTENT: ${cleanContent}`;
+        return `RESOURCE: ${r.title}\nURL: /resources/${r.slug}\nCONTENT: ${cleanContent}`;
       })
-      .join("
-
----
-
-");
+      .join("\n\n---\n\n");
   } catch (error) {
     console.error("Context Fetch Error:", error);
     return "";

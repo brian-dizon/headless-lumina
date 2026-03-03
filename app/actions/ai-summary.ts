@@ -91,8 +91,9 @@ export async function generateExecutiveSummary(content: string, title: string): 
       return { data: summary };
     }
     return { data: fallbackData, warning: "AI response empty. Using fallback." };
-  } catch (error: any) {
-    console.warn(`[AI Summary] Failed: ${error.message}. Using heuristic fallback.`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.warn(`[AI Summary] Failed: ${message}. Using heuristic fallback.`);
     return { data: fallbackData, warning: "AI Offline. Showing standard summary." };
   }
 }
