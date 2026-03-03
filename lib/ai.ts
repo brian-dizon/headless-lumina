@@ -23,8 +23,9 @@ export async function generateAIContent(prompt: string) {
     const result = await aiModel.generateContent(prompt);
     const response = await result.response;
     return response.text();
-  } catch (error: any) {
-    console.error(`[AI Engine] Global Error: ${error.message}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error(`[AI Engine] Global Error: ${message}`);
     throw error;
   }
 }

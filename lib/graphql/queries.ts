@@ -130,3 +130,22 @@ export const GET_PAGE_BLOCKS = gql`
     }
   }
 `;
+
+/**
+ * Search Resources Query
+ * Performs a high-speed keyword search on titles and content.
+ */
+export const SEARCH_RESOURCES = gql`
+  query SearchResources($search: String!) {
+    resources(where: { search: $search }, first: 5) {
+      nodes {
+        id
+        title
+        slug
+        resourceDetails {
+          subtitle
+        }
+      }
+    }
+  }
+`;

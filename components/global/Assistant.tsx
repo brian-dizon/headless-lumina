@@ -69,7 +69,7 @@ export function Assistant() {
       };
       
       setMessages(prev => [...prev, assistantMessage]);
-    } catch (err) {
+    } catch {
       setMessages(prev => [...prev, { id: "err", role: "assistant", content: "Connectivity issue. Please try again." }]);
     } finally {
       setLoading(false);

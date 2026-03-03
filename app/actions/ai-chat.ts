@@ -31,7 +31,7 @@ export async function assistantChat(messages: { role: string; content: string }[
   try {
     const answer = await generateAIContent(prompt);
     return { answer };
-  } catch (error: any) {
+  } catch {
     console.warn("[Assistant Action] AI Failed, using Concierge Fallback...");
     
     // Concierge Fallback: Simple keyword match in the context

@@ -133,6 +133,26 @@ In modern Next.js (App Router), we balance two distinct organizational patterns:
 
 ---
 
+## 🅿️ Parking Lot of Ideas (Future Roadmap)
+
+### **1. Curated ACF Summaries (Zero-Latency Frontend)**
+- **Concept**: Move from "Just-in-Time" AI generation to "Pre-computed" static summaries stored in WordPress.
+- **Implementation Plan**:
+    1. **WordPress**: Add a `aiManualSummary` (Textarea) field to the Resource ACF group.
+    2. **GraphQL**: Update `RESOURCE_CARD_FIELDS` in `lib/graphql/fragments.ts` to include the new field.
+    3. **Action Logic**: Refactor `app/actions/ai-summary.ts` to follow a "Waterfall" priority: Curated ACF Field ➔ Live AI Generation ➔ Heuristic Fallback.
+    4. **Benefit**: Instant page loads and zero AI quota consumption for established resources.
+
+### **2. n8n Orchestrated Chatbot (Trained "Brain")**
+- **Concept**: Offload the Chatbot's logic to **n8n** for advanced orchestration, long-term memory, and easy training.
+- **Implementation Plan**:
+    1. **n8n Setup**: Build a workflow using a **Webhook Node**, a **Vector Store** (trained on site content), and an **AI Agent**.
+    2. **Frontend Action**: Update `app/actions/ai-chat.ts` to simply `fetch()` the n8n webhook URL.
+    3. **Config**: Add `N8N_WEBHOOK_URL` to `.env.local`.
+    4. **Benefit**: Visually "train" the assistant on new PDFs or data sources without changing a single line of React code.
+
+---
+
 ## ✅ Completed Rendering Strategies & Optimization
 - **SSG**: Pre-rendered all Resource, Topic, and Expert pages.
 - **ISR**: 60-second automatic background updates.
