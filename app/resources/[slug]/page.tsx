@@ -8,6 +8,7 @@ import { draftMode } from "next/headers";
 import { auth } from "@clerk/nextjs/server";
 import { GatedContent } from "@/components/global/GatedContent";
 import { SingleResourceData, AllResourceSlugsData } from "@/types";
+import { AISummary } from "@/components/resources/AISummary";
 
 export default async function SingleResourcePage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ id?: string }> }) {
   // Await parameters
@@ -77,12 +78,15 @@ export default async function SingleResourcePage({ params, searchParams }: { par
         {isPremium && !userId ? (
           <GatedContent />
         ) : (
-          <article
-            className="prose dark:prose-invert prose-slate prose-lg max-w-none 
-            prose-headings:font-black prose-headings:tracking-tight 
-            prose-a:text-primary prose-img:rounded-xl"
-            dangerouslySetInnerHTML={{ __html: content ?? "" }}
-          />
+          <>
+            <AISummary content={content ?? ""} title={title ?? ""} />
+            <article
+              className="prose dark:prose-invert prose-slate prose-lg max-w-none 
+              prose-headings:font-black prose-headings:tracking-tight 
+              prose-a:text-primary prose-img:rounded-xl"
+              dangerouslySetInnerHTML={{ __html: content ?? "" }}
+            />
+          </>
         )}
       </div>
     </main>

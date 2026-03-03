@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BookOpen, Star, FileText } from "lucide-react";
+import { IndustryPulse } from "@/components/global/IndustryPulse";
 
 export default async function VaultPage() {
     const user = await currentUser();
@@ -60,24 +61,30 @@ export default async function VaultPage() {
                     </div>
                 </div>
 
-                <section>
-                    <div className="flex items-center justify-between mb-8">
-                        <h2 className="text-2xl font-bold tracking-tight">Recommended for You</h2>
-                        <Button variant="outline" asChild>
-                            <Link href="/resources">Browse All Resources</Link>
-                        </Button>
-                    </div>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+                    <section className="lg:col-span-2">
+                        <div className="flex items-center justify-between mb-8">
+                            <h2 className="text-2xl font-bold tracking-tight">Recommended for You</h2>
+                            <Button variant="outline" asChild>
+                                <Link href="/resources">Browse All Resources</Link>
+                            </Button>
+                        </div>
 
-                    <div className="p-12 text-center border-2 border-dashed rounded-3xl bg-muted/30">
-                        <h3 className="text-xl font-bold mb-2">Your vault is empty</h3>
-                        <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                            Start exploring our library of expert reports, architectural guides, and case studies to build your personalized knowledge base.
-                        </p>
-                        <Button asChild size="lg" className="rounded-full">
-                            <Link href="/resources">Discover Content</Link>
-                        </Button>
-                    </div>
-                </section>
+                        <div className="p-12 text-center border-2 border-dashed rounded-3xl bg-muted/30">
+                            <h3 className="text-xl font-bold mb-2">Your vault is empty</h3>
+                            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                                Start exploring our library of expert reports, architectural guides, and case studies to build your personalized knowledge base.
+                            </p>
+                            <Button asChild size="lg" className="rounded-full">
+                                <Link href="/resources">Discover Content</Link>
+                            </Button>
+                        </div>
+                    </section>
+
+                    <aside className="lg:col-span-1 sticky top-24">
+                        <IndustryPulse />
+                    </aside>
+                </div>
             </div>
         </main>
     );

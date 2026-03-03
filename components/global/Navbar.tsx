@@ -4,6 +4,7 @@ import { Logo } from "./Logo";
 import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./MobileNav";
 import { UserProfile } from "./UserProfile";
+import { SmartSearch } from "./SmartSearch";
 import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
 
@@ -36,6 +37,7 @@ export function Navbar() {
           </div>
 
           <div className="flex items-center gap-3 pl-4 border-l border-border/50">
+            <SmartSearch />
             <ModeToggle />
             <UserProfile />
           </div>

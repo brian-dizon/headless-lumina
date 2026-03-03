@@ -82,14 +82,50 @@ This document tracks the architectural decisions, milestones, and technical prog
     2. **Persistence**: Valid data is pushed to WordPress via WPGraphQL using an authenticated Apollo Client.
     3. **Confirmation**: UI provides immediate feedback (Success/Error states) without full-page reloads.
 
+## 📡 Milestone 14: The Industry Pulse (External API Orchestration)
+- **Data Fetching**: Implemented server-side orchestration in `lib/external-api.ts` to fetch live data from the **Hacker News Algolia API**.
+- **Type Safety**: Defined `PulseItem` and `PulseResponse` interfaces in `types/pulse.ts` for structured data handling.
+- **Dynamic Component**: Created `IndustryPulse.tsx` using a premium, card-based layout with Lucide icons and Tailwind gradients.
+- **Cache Strategy**: Configured **Time-based Revalidation** (`{ next: { revalidate: 3600 } }`) to balance data freshness with high performance.
+- **Layout Integration**: Transformed the `/vault` dashboard into a grid-based layout to accommodate the live feed sidebar.
+- **Process Flow**:
+    1. **Request**: Next.js Server Component initiates a fetch to the external API during page render.
+    2. **Transformation**: Raw JSON is typed and mapped to the UI components.
+    3. **Caching**: Data is cached at the edge for 1 hour, significantly reducing external API latency for subsequent users.
+
+## 🕹️ Milestone 15: Mission Control (Infrastructure Monitoring)
+- **Multi-Source Fetching**: Engineered `lib/status-api.ts` to aggregate real-time health data from GitHub and Vercel APIs in parallel.
+- **Visual "Pizzazz"**: Implemented a **"Global Infrastructure Health"** dashboard on the Home Page, featuring pulsing uptime indicators and carbon-fibre glassmorphism.
+- **Streaming UI**: Utilized Next.js `<Suspense>` to decouple live API health checks from the core Hero rendering, preventing latency-based blocking.
+- **Architecture**: Mapped heterogeneous status indicators (none, minor, major) to a unified Enterprise Health system (Healthy, Degraded, Critical).
+
+## 🧠 Milestone 16: AI Insights Engine (RAG & Summarization)
+- **AI Core**: Orchestrated **Google Gemini 1.5 Flash** in `lib/ai.ts` with a resilient multi-provider factory (OpenAI fallback support).
+- **Executive Summarization**: Implemented `generateExecutiveSummary` action and `AISummary.tsx` component to automatically provide 3-bullet architectural takeaways.
+- **Heuristic Fallback Engine**: Developed custom logic to extract technical summaries directly from content when AI providers are hit by quota limits or outages, ensuring 100% UI uptime.
+- **Smart Search (RAG)**: Developed a global **"Ask the Architect"** search engine in `app/actions/ai-search.ts` with context injection and mandatory citations.
+- **Polished UI/UX**: Integrated Shadcn Tooltips, badge-based state indicators (AI vs. Standard), and CMD+K global shortcut support.
+
+## 🛠️ Maintenance & Version Fixes (Next.js 16 Upgrade)
+- **Middleware Proxy Migration**: Renamed `middleware.ts` to `proxy.ts` to comply with the Next.js 16+ convention for intercepting requests.
+- **Zod Type Patching**: Refactored the `FormState` in `app/actions/contact.ts` to replace the deprecated `typeToFlattenedError` utility with a manually defined, type-safe error structure, ensuring successful production builds.
+
 ---
 
-## ✅ Project Status: INTERACTIVE FULL-STACK ECOSYSTEM
+## 💡 Architectural Nuggets
+### **Colocation vs. Centralization**
+In modern Next.js (App Router), we balance two distinct organizational patterns:
+- **Centralization (`/components`)**: Reserved for **Global UI Primitives** (Buttons, Inputs) and **Domain Components** (ResourceCards) that are reused across many different routes.
+- **Colocation (`app/route/_components`)**: The "Senior-Level" practice of placing page-specific components as close to the route as possible. 
+    - **Benefits**: Improved discoverability, reduced cognitive load when navigating the file tree, and a clear signal that a component is *not* intended for reuse elsewhere.
+    - **Implementation**: Leveraged in the Home refactor by moving `Hero`, `Features`, and `FeaturedResources` into `app/(home)/_components`.
+
+---
+
+## ✅ Project Status: INTELLIGENT ENTERPRISE ECOSYSTEM
 
 ## 🛠️ Upcoming Roadmap (Senior Extensions)
-- [ ] **Milestone 14: The Industry Pulse** (External API Orchestration)
-- [ ] **Milestone 15: AI Insights Engine** (Summarization + RAG Smart Search)
-- [ ] **Milestone 16: The Assistant** (Streaming AI Chatbot)
+- [ ] **Milestone 17: The Assistant** (Streaming AI Chatbot)
 
 ---
 

@@ -18,7 +18,11 @@ const ContactSchema = z.object({
 export type FormState = {
   success?: boolean;
   error?: string;
-  errors?: z.typeToFlattenedError<typeof ContactSchema>["fieldErrors"];
+  errors?: {
+    name?: string[];
+    email?: string[];
+    message?: string[];
+  };
 };
 
 /**
@@ -58,8 +62,9 @@ export async function submitLead(prevState: FormState, formData: FormData): Prom
     });
 
     return { success: true };
-  } catch (error: any) {
-    console.error("Mutation Error:", error);
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Failed to submit inquiry.";
+    console.error("Mutation Error:", errorMessage);
     return { 
       error: "Failed to submit inquiry. Please try again later." 
     };

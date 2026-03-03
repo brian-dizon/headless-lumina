@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/global/theme-provider";
 import { Navbar } from "@/components/global/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Footer } from "@/components/global/Footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +32,11 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar />
-            <div className="flex-grow">{children}</div>
-            <Footer />
+            <TooltipProvider>
+              <Navbar />
+              <div className="flex-grow">{children}</div>
+              <Footer />
+            </TooltipProvider>
           </ThemeProvider>
         </body>
       </html>
