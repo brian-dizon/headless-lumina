@@ -44,20 +44,36 @@ This document tracks the architectural decisions, milestones, and technical prog
 - **Mobile Navigation**: Added a slide-out `MobileNav.tsx` using Shadcn/UI's `Sheet` component.
 
 ## 👥 Milestone 9: The Expert Ecosystem & Reverse Relationships
-- **Expert Directory**: Built a premium directory at `/experts` featuring animated `ExpertCard` components with easing and depth.
-- **Dynamic Profiles**: Created `app/experts/[slug]/page.tsx` featuring a split-hero layout and authored resources feed.
-- **Relationship Logic**: Implemented a "Senior Workaround" using native JS `.filter()` and `.some()` to bridge schema limitations for reverse relationships.
+- **Expert Directory**: Built a premium directory at `/experts` featuring animated `ExpertCard` components.
+- **Dynamic Profiles**: Created `app/experts/[slug]/page.tsx` featuring a split-hero layout.
+- **Relationship Logic**: Implemented a "Senior Workaround" using native JS `.filter()` and `.some()` to bridge schema limitations.
 
 ## 🧱 Milestone 10: Atomic Block Rendering (The Gutenberg Bridge)
-- **Architecture**: Implemented a `BlockRenderer.tsx` engine to map WordPress Gutenberg blocks to specific React components.
-- **Structured Data**: Utilized GraphQL fragments (`... on CoreHeading`) to fetch specific block attributes like heading levels and anchor IDs.
-- **Hydration Mastery**: Solved the "Double Nesting" hydration mismatch by using wrapper `div`s and Tailwind child selectors (`[&_h2]:...`) to style WordPress-provided HTML.
-- **Dual Content Strategy**: Established the distinction between the "Content Blob" approach (for standard resources) and the "Block Pipeline" approach (for high-flexibility marketing pages like `/about`).
+- **Architecture**: Implemented a `BlockRenderer.tsx` engine to map WordPress Gutenberg blocks to React components.
+- **Structured Data**: Utilized GraphQL fragments to fetch specific block attributes (e.g., Heading levels).
+- **Hydration Mastery**: Solved "Double Nesting" mismatch using Tailwind child selectors (`[&_h2]:...`).
+
+## 🔐 Milestone 11: Secure Previews & Draft Mode
+- **Draft Gateway**: Created `app/api/draft/route.ts` to enable Next.js Draft Mode via secure tokens.
+- **Auth Handshake**: Implemented **Basic Authentication** in `lib/apollo-client.ts` using WordPress **Application Passwords**.
+- **Bulletproof Lookups**: Developed an "ID Handshake" fallback to preview new drafts by `DATABASE_ID`.
+- **Native Integration**: Built a WordPress **Must-Use Plugin** (`lumina-preview-bridge.php`) to redirect the WP "Preview" button.
 
 ---
 
-## 🅿️ Parking Lot (Future Tasks)
-- [ ] **Pagination/Load More:** Handling large datasets in the Resource Grid.
-- [ ] **Next.js Draft Mode:** Live previews for WordPress editors.
-- [ ] **Search & Filtering:** Real-time client-side queries.
-- [ ] **Gated Content:** Integration with Clerk for "Premium" resources.
+## ✅ Project Status: EXPANDING TO FULL-STACK ECOSYSTEM
+
+## 🛠️ Upcoming Roadmap (Senior Extensions)
+- [ ] **Milestone 12: The Gated Vault** (Clerk Auth + Premium Content Logic)
+- [ ] **Milestone 13: Interactive Lead Gen** (Forms + Server Actions + CRM Integration)
+- [ ] **Milestone 14: The Industry Pulse** (External API Orchestration)
+- [ ] **Milestone 15: AI Insights Engine** (Summarization + RAG Smart Search)
+- [ ] **Milestone 16: The Assistant** (Streaming AI Chatbot)
+
+---
+
+## ✅ Completed Rendering Strategies & Optimization
+- **SSG**: Pre-rendered all Resource, Topic, and Expert pages.
+- **ISR**: 60-second automatic background updates.
+- **PPR Pattern**: Hybrid static/dynamic loading using Suspense and Streaming.
+- **Lighthouse Scores**: 100 SEO, 100 Best Practices, 98 Accessibility, 93 Performance (Local).

@@ -9,36 +9,42 @@ const rawEndpoint = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || "http://localho
 
 /**
  * 2. URL Sanity Check
- * Ensures the endpoint always ends with /graphql, preventing 404 errors
- * if the user accidentally omits it in the .env file.
+ * Ensures the endpoint always ends with /graphql, preventing 404 errors.
  */
 const GRAPHQL_ENDPOINT = rawEndpoint.endsWith("/graphql") 
   ? rawEndpoint 
   : `${rawEndpoint.replace(/\/$/, "")}/graphql`;
 
 /**
- * 3. Apollo Client Singleton (Server-Side)
- * This function returns a fresh Apollo Client instance for fetching data.
- * In Next.js 15, we use this inside Server Components.
+ * 3. Apollo Client Singleton (Enhanced for Auth)
+ * @param authToken - Optional Base64 encoded 'user:pass' string.
+ * If provided, the client will include an Authorization header and bypass caching.
  */
-export const getClient = () => {
+export const getClient = (authToken?: string) => {
   return new ApolloClient({
     link: new HttpLink({
       uri: GRAPHQL_ENDPOINT,
       /**
-       * 4. Next.js Data Cache Integration
-       * By passing 'fetchOptions', we tell Next.js to use its native
-       * Incremental Static Regeneration (ISR). This caches WP data 
-       * for 60 seconds before checking for updates.
+       * 4. Authorization Headers
+       * We use the Spread operator to conditionally add the Authorization header.
+       * This is used specifically for fetching private data like Drafts.
+       */
+      headers: {
+        ...(authToken ? { Authorization: `Basic ${authToken}` } : {}),
+      },
+      /**
+       * 5. Dynamic Caching Logic
+       * If an authToken is present, we set revalidate to 0.
+       * This tells Next.js: "This is private/preview data, do NOT cache it."
+       * Otherwise, we stick to our high-performance 60-second ISR cache.
        */
       fetchOptions: {
-        next: { revalidate: 60 }, 
+        next: { revalidate: authToken ? 0 : 60 }, 
       },
     }),
     /**
-     * 5. In-Memory Cache
-     * Stores query results in RAM during the lifecycle of the request
-     * to prevent redundant network calls for the same data.
+     * 6. In-Memory Cache
+     * Prevents duplicate requests within the same server-side execution.
      */
     cache: new InMemoryCache(),
   });
