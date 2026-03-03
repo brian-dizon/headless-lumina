@@ -1,48 +1,13 @@
-import { gql } from "@apollo/client";
+import { GET_PAGE_BLOCKS } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
 import { BlockRenderer } from "@/components/blocks/BlockRenderer";
 import { getClient } from "@/lib/apollo-client";
-
-const GET_PAGE_BLOCKS = gql`
-  query GetPageBlocks($id: ID!) {
-    page(id: $id, idType: URI) {
-      title
-      editorBlocks {
-        name
-        renderedHtml
-        ... on CoreHeading {
-          attributes {
-            level
-          }
-        }
-        ... on CoreQuote {
-          attributes {
-            value
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface AboutPageData {
-  page: {
-    title: string;
-    editorBlocks: Array<{
-      name: string;
-      renderedHtml: string;
-      attributes?: {
-        level?: number;
-        [key: string]: unknown;
-      } | null;
-    }> | null;
-  } | null;
-}
+import { AboutPageData } from "@/types";
 
 export default async function AboutPage() {
   const { data } = await getClient().query<AboutPageData>({
     query: GET_PAGE_BLOCKS,
-    variables: { id: "/about-us/" },
+    variables: { id: "/about-us/", idType: "URI" },
   });
 
   if (!data?.page) {

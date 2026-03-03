@@ -1,5 +1,5 @@
 import { getClient } from "@/lib/apollo-client";
-import { gql } from "@apollo/client";
+import { GET_EXPERTS } from "@/lib/graphql/queries";
 import { ExpertCard } from "./ExpertCard";
 
 type ExpertNode = {
@@ -23,30 +23,10 @@ type GetExpertsData = {
   };
 };
 
-const GET_EXPERTS = gql`
-  query GetExpertsData {
-    experts(first: 100) {
-      nodes {
-        title
-        slug
-        expertProfile {
-          jobTitle
-          bio
-          headshot {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 export async function ExpertGrid() {
   const { data } = await getClient().query<GetExpertsData>({
     query: GET_EXPERTS,
+    variables: { first: 100 }
   });
 
   const nodes = data?.experts?.nodes || [];

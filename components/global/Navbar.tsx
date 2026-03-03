@@ -3,7 +3,7 @@
 import { Logo } from "./Logo";
 import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./MobileNav";
-import { Button } from "@/components/ui/button";
+import { UserProfile } from "./UserProfile";
 import Link from "next/link";
 
 export function Navbar() {
@@ -31,9 +31,7 @@ export function Navbar() {
           
           <div className="flex items-center gap-3 pl-4 border-l border-border/50">
             <ModeToggle />
-            <Button size="sm" className="hidden sm:flex font-bold px-5 bg-primary text-primary-foreground hover:bg-primary/90 rounded-full">
-              Sign Up
-            </Button>
+            <UserProfile />
           </div>
         </div>
       </div>

@@ -1,118 +1,11 @@
 import { getClient } from "@/lib/apollo-client";
-import { gql } from "@apollo/client";
+import { GET_EXPERT_BY_SLUG, GET_ALL_EXPERT_SLUGS } from "@/lib/graphql/queries";
 import { notFound } from "next/navigation";
 import { ResourceCard } from "@/components/resources/ResourceCard";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Linkedin, Twitter, Globe } from "lucide-react";
-
-// The GraphQL Query: We fetch the expert and THEIR specific resources
-const GET_EXPERT_BY_SLUG = gql`
-  query GetExpertBySlug($slug: ID!) {
-    expert(id: $slug, idType: SLUG) {
-      title
-      slug
-      expertProfile {
-        jobTitle
-        bio
-        headshot {
-          node {
-            sourceUrl
-          }
-        }
-      }
-    }
-    resources(first: 100) {
-      nodes {
-        title
-        slug
-        resourceDetails {
-          subtitle
-          isPremium
-          expertRelationship {
-            nodes {
-              ... on Expert {
-                title
-                slug
-                expertProfile {
-                  jobTitle
-                  headshot {
-                    node {
-                      sourceUrl
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        topics {
-          nodes {
-            name
-            slug
-          }
-        }
-      }
-    }
-  }
-`;
-
-interface SingleExpertData {
-  expert: {
-    title: string;
-    slug: string;
-    expertProfile: {
-      jobTitle: string;
-      bio: string;
-      headshot: {
-        node: {
-          sourceUrl: string;
-        };
-      };
-    };
-  } | null;
-  resources: {
-    nodes: ExpertResource[];
-  } | null;
-}
-
-interface ExpertResource {
-  slug: string;
-  title: string;
-  resourceDetails?: {
-    subtitle?: string | null;
-    isPremium?: boolean | null;
-    expertRelationship?: {
-      nodes?: Array<{
-        title: string;
-        slug: string;
-        expertProfile?: {
-          jobTitle?: string | null;
-          headshot?: {
-            node?: {
-              sourceUrl?: string | null;
-              altText?: string | null;
-            } | null;
-          } | null;
-        } | null;
-      }> | null;
-    } | null;
-  } | null;
-  topics?: {
-    nodes?: Array<{
-      name: string;
-      slug: string;
-    }> | null;
-  } | null;
-}
-
-interface GetAllExpertSlugsData {
-  experts: {
-    nodes: Array<{
-      slug: string;
-    }>;
-  };
-}
+import { SingleExpertData, AllExpertSlugsData } from "@/types";
 
 export default async function ExpertSinglePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug: expertSlug } = await params;
@@ -209,16 +102,8 @@ export default async function ExpertSinglePage({ params }: { params: Promise<{ s
 }
 
 export async function generateStaticParams() {
-  const { data } = await getClient().query<GetAllExpertSlugsData>({
-    query: gql`
-      query GetAllExpertSlugs {
-        experts(first: 100) {
-          nodes {
-            slug
-          }
-        }
-      }
-    `,
+  const { data } = await getClient().query<AllExpertSlugsData>({
+    query: GET_ALL_EXPERT_SLUGS,
   });
 
   if (!data?.experts?.nodes) {

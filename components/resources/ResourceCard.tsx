@@ -2,42 +2,10 @@ import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-
-type Topic = {
-  name: string;
-  slug: string;
-};
-
-type Expert = {
-  title: string;
-  expertProfile?: {
-    jobTitle?: string | null;
-    headshot?: {
-      node?: {
-        sourceUrl?: string | null;
-        altText?: string | null;
-      } | null;
-    } | null;
-  } | null;
-};
-
-type Resource = {
-  slug: string;
-  title: string;
-  resourceDetails?: {
-    subtitle?: string | null;
-    isPremium?: boolean | null;
-    expertRelationship?: {
-      nodes?: Expert[] | null;
-    } | null;
-  } | null;
-  topics?: {
-    nodes?: Topic[] | null;
-  } | null;
-};
+import { WPResource } from "@/types";
 
 interface ResourceCardProps {
-  resource: Resource;
+  resource: WPResource;
 }
 
 export function ResourceCard({ resource }: ResourceCardProps) {
@@ -55,7 +23,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
         <div className="flex items-center justify-between gap-2 flex-wrap">
           {/* Topics: Higher z-index to sit on top of the card link */}
           <div className="flex gap-1.5 flex-wrap relative z-20">
-            {topics?.nodes?.map((topic: Topic) => (
+            {topics?.nodes?.map((topic) => (
               <Link key={topic.slug} href={`/topic/${topic.slug}`}>
                 <Badge variant="secondary" className="px-2 py-0 h-5 text-[10px] font-bold uppercase tracking-wider hover:bg-primary hover:text-white transition-colors cursor-pointer">
                   {topic.name}
@@ -91,7 +59,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
           {experts.length > 0 && (
             <div className="flex items-center">
               <div className="flex -space-x-3">
-                {visibleExperts.map((expert: Expert) => (
+                {visibleExperts.map((expert) => (
                   <Avatar key={expert.title} className="h-8 w-8 ring-2 ring-background shrink-0">
                     <AvatarImage 
                       src={expert.expertProfile?.headshot?.node?.sourceUrl ?? undefined}

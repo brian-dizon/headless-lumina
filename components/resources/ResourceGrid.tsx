@@ -1,91 +1,18 @@
 import { getClient } from "@/lib/apollo-client";
-import { gql } from "@apollo/client";
+import { GET_RESOURCES } from "@/lib/graphql/queries";
 import { ResourceCard } from "./ResourceCard";
 import { Button } from "@/components/ui/button";
+import { GetResourcesData } from "@/types";
 import Link from "next/link";
 import { ChevronLeft, ArrowRight } from "lucide-react";
-
-type ResourceNode = {
-  title: string;
-  slug: string;
-  resourceDetails: {
-    subtitle: string | null;
-    isPremium: boolean | null;
-    expertRelationship: {
-      nodes: {
-        title: string;
-        expertProfile: {
-          jobTitle: string | null;
-          headshot: {
-            node: {
-              sourceUrl: string;
-            } | null;
-          } | null;
-        } | null;
-      }[];
-    } | null;
-  } | null;
-  topics: {
-    nodes: {
-      name: string;
-      slug: string;
-    }[];
-  } | null;
-};
-
-type GetResourcesData = {
-  resources: {
-    nodes: ResourceNode[];
-  };
-};
-
-/**
- * Simplified Query
- * We fetch a larger batch (up to 100) and handle the view-layer
- * pagination in React for better performance and compatibility.
- */
-const GET_RESOURCES = gql`
-  query GetLuminaResources {
-    resources(first: 100) {
-      nodes {
-        title
-        slug
-        resourceDetails {
-          subtitle
-          isPremium
-          expertRelationship {
-            nodes {
-              ... on Expert {
-                title
-                expertProfile {
-                  jobTitle
-                  headshot {
-                    node {
-                      sourceUrl
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        topics {
-          nodes {
-            name
-            slug
-          }
-        }
-      }
-    }
-  }
-`;
 
 export async function ResourceGrid({ page = 1 }: { page?: number }) {
   const POSTS_PER_PAGE = 6;
 
-  // 1. Fetch the data batch
+  // 1. Fetch the data batch using the centralized query and type
   const { data } = await getClient().query<GetResourcesData>({
     query: GET_RESOURCES,
+    variables: { first: 100 }
   });
 
   const allNodes = data?.resources.nodes ?? [];
