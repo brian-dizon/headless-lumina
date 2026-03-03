@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { WPResource } from "@/types";
+import { SaveButton } from "./SaveButton";
 
 interface ResourceCardProps {
   resource: WPResource;
@@ -54,9 +55,9 @@ export function ResourceCard({ resource }: ResourceCardProps) {
       </CardContent>
 
       <CardFooter className="border-t bg-muted/30 pt-4 pb-4 px-6 mt-auto">
-        <div className="flex items-center gap-4 w-full relative z-20">
+        <div className="flex items-center justify-between gap-4 w-full relative z-20">
           {/* Stacked Avatar Group */}
-          {experts.length > 0 && (
+          {experts.length > 0 ? (
             <div className="flex items-center">
               <div className="flex -space-x-3">
                 {visibleExperts.map((expert) => (
@@ -91,7 +92,11 @@ export function ResourceCard({ resource }: ResourceCardProps) {
                 </p>
               </div>
             </div>
+          ) : (
+            <div /> // Spacer if no experts
           )}
+
+          <SaveButton slug={resource.slug} />
         </div>
       </CardFooter>
     </Card>

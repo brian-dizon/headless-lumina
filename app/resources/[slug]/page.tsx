@@ -9,6 +9,7 @@ import { auth } from "@clerk/nextjs/server";
 import { GatedContent } from "@/components/global/GatedContent";
 import { SingleResourceData, AllResourceSlugsData } from "@/types";
 import { AISummary } from "@/components/resources/AISummary";
+import { SaveButton } from "@/components/resources/SaveButton";
 
 export default async function SingleResourcePage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ id?: string }> }) {
   // Await parameters
@@ -60,14 +61,18 @@ export default async function SingleResourcePage({ params, searchParams }: { par
       <div className="container mx-auto py-24 px-4 max-w-4xl">
         {/* Article Header */}
         <header className="mb-12 border-b pb-8">
-          <div className="flex gap-2 mb-6">
-            {topics?.nodes?.map((topic) => (
-              <Link key={topic.slug} href={`/topic/${topic.slug}`}>
-                <Badge variant="secondary" className="px-3 py-1 hover:bg-primary hover:text-white transition-colors">
-                  {topic.name}
-                </Badge>
-              </Link>
-            ))}
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <div className="flex gap-2">
+              {topics?.nodes?.map((topic) => (
+                <Link key={topic.slug} href={`/topic/${topic.slug}`}>
+                  <Badge variant="secondary" className="px-3 py-1 hover:bg-primary hover:text-white transition-colors">
+                    {topic.name}
+                  </Badge>
+                </Link>
+              ))}
+            </div>
+            
+            <SaveButton slug={slug} />
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">{title}</h1>

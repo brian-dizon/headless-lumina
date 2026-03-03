@@ -127,9 +127,15 @@ In modern Next.js (App Router), we balance two distinct organizational patterns:
 - **Concierge Fallback Engine**: Implemented an automated "Search & Recommend" logic that activates during AI outages or quota limits, ensuring the Assistant always provides helpful resource links even when offline.
 - **Interactive UX**: Developed an animated, slide-up chat interface with message history, "Thinking" states, and auto-scrolling capabilities.
 
+## 📚 Milestone 18: Personal Reading List (User Metadata)
+- **Persistence Layer**: Orchestrated **Clerk publicMetadata** to store and synchronize user-specific reading lists across devices without a separate database.
+- **Optimistic UI**: Developed a high-performance `SaveButton.tsx` featuring instant visual feedback and animated transitions.
+- **Server Component Architecture**: Refactored the core resource ecosystem to maintain Server Component performance while delegating interactive state to the client-side button.
+- **Vault Orchestration**: Built a personalized "Your Reading List" dashboard in the Member Vault that dynamically fetches bookmarked resources from the WordPress CMS.
+
 ---
 
-## ✅ Project Status: COMPLETED - FULL-STACK KNOWLEDGE ECOSYSTEM
+## ✅ Project Status: COMPLETED - FULL-STACK ENTERPRISE ECOSYSTEM
 
 ---
 
@@ -150,6 +156,15 @@ In modern Next.js (App Router), we balance two distinct organizational patterns:
     2. **Frontend Action**: Update `app/actions/ai-chat.ts` to simply `fetch()` the n8n webhook URL.
     3. **Config**: Add `N8N_WEBHOOK_URL` to `.env.local`.
     4. **Benefit**: Visually "train" the assistant on new PDFs or data sources without changing a single line of React code.
+
+### **3. Personal Reading List (User Engagement)**
+- **Concept**: Allow authenticated users to save technical resources to a personalized "Read Later" list accessible via their Vault.
+- **Implementation Plan**:
+    1. **UI**: Add a "Bookmark" toggle to `ResourceCard.tsx` and the `SingleResourcePage` header.
+    2. **Persistence**: Utilize **Clerk privateMetadata** to store an array of saved resource IDs for each member.
+    3. **Server Action**: Create `toggleBookmark.ts` to handle metadata updates with optimistic UI feedback.
+    4. **Vault View**: Implement a "My List" section in `app/vault/page.tsx` that fetches resources matching the user's stored IDs.
+    5. **Benefit**: Creates a sticky user experience and provides a clear value proposition for the authenticated Member Vault.
 
 ---
 

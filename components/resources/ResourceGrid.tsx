@@ -63,7 +63,7 @@ export async function ResourceGrid({
         </div>
         <h3 className="text-2xl font-black tracking-tight mb-2">No Resources Found</h3>
         <p className="text-muted-foreground max-w-sm mx-auto mb-8">
-          We couldn't find any resources matching your current filters. Try adjusting your technical domains or access level.
+          We couldn&apos;t find any resources matching your current filters. Try adjusting your technical domains or access level.
         </p>
         <Button variant="outline" className="rounded-full font-bold" asChild>
           <Link href="/resources">Reset All Filters</Link>

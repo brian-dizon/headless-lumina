@@ -27,7 +27,7 @@ export default async function ResourcesPage({
   const currentAccess = resolvedParams.access || "all";
 
   // 2. Fetch Topics for the Filters (Cached via ISR)
-  const { data: topicData } = await getClient().query({
+  const { data: topicData } = await getClient().query<{ topics: { nodes: { id: string; name: string; slug: string }[] } }>({
     query: GET_ALL_TOPIC_SLUGS
   });
   const topics = topicData?.topics?.nodes || [];
