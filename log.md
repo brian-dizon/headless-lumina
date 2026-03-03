@@ -59,13 +59,34 @@ This document tracks the architectural decisions, milestones, and technical prog
 - **Bulletproof Lookups**: Developed an "ID Handshake" fallback to preview new drafts by `DATABASE_ID`.
 - **Native Integration**: Built a WordPress **Must-Use Plugin** (`lumina-preview-bridge.php`) to redirect the WP "Preview" button.
 
+## 🏰 Milestone 12: The Gated Vault (Clerk Authentication)
+- **Auth Integration**: Implemented **Clerk Authentication** as the primary identity provider.
+- **Protected Routes**: Configured `middleware.ts` to enforce session requirements for the `/vault` ecosystem.
+- **Global Provider**: Wrapped the application in `ClerkProvider` within `app/layout.tsx` for consistent auth state.
+- **Member Hub**: Developed `app/vault/page.tsx` as a personalized dashboard for authenticated members.
+- **Gated Logic**: Created `GatedContent.tsx` as a reusable UI pattern for prompting non-authenticated users to join.
+- **Process Flow**:
+    1. **Intercept**: Middleware detects access to protected paths (`/vault/*`).
+    2. **Challenge**: Unauthenticated users are redirected to `/sign-in` (custom routes in `(auth)` group).
+    3. **Session Handshake**: Upon successful login, Clerk issues a JWT and redirects to the intended destination.
+    4. **Dynamic UI**: `Navbar.tsx` utilizes `<SignedIn>` and `UserProfile.tsx` to toggle member-specific navigation and account controls.
+
+## ✉️ Milestone 13: Interactive Lead Gen (Server Actions & CRM)
+- **Componentry**: Built `ContactForm.tsx` utilizing Shadcn/UI and **React 19 Hooks** (`useActionState`, `useFormStatus`).
+- **Server Actions**: Implemented `submitLead` in `app/actions/contact.ts` for secure, server-side form processing.
+- **Validation**: Integrated **Zod** for robust schema validation (Name, Email, Message) before processing.
+- **CMS Integration**: Configured `CREATE_LEAD_MUTATION` in `lib/graphql/mutations.ts` to persist inquiries to WordPress.
+- **CRM-as-CMS**: Successfully mapped form submissions to a **"Leads" Custom Post Type** in WordPress, ensuring a centralized repository for technical inquiries.
+- **Process Flow**:
+    1. **Validation**: Client submits form; Server Action validates data against Zod schema.
+    2. **Persistence**: Valid data is pushed to WordPress via WPGraphQL using an authenticated Apollo Client.
+    3. **Confirmation**: UI provides immediate feedback (Success/Error states) without full-page reloads.
+
 ---
 
-## ✅ Project Status: EXPANDING TO FULL-STACK ECOSYSTEM
+## ✅ Project Status: INTERACTIVE FULL-STACK ECOSYSTEM
 
 ## 🛠️ Upcoming Roadmap (Senior Extensions)
-- [ ] **Milestone 12: The Gated Vault** (Clerk Auth + Premium Content Logic)
-- [ ] **Milestone 13: Interactive Lead Gen** (Forms + Server Actions + CRM Integration)
 - [ ] **Milestone 14: The Industry Pulse** (External API Orchestration)
 - [ ] **Milestone 15: AI Insights Engine** (Summarization + RAG Smart Search)
 - [ ] **Milestone 16: The Assistant** (Streaming AI Chatbot)

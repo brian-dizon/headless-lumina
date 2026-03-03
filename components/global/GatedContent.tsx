@@ -1,6 +1,6 @@
-import { SignInButton, SignUpButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Lock } from "lucide-react";
+import Link from "next/link";
 
 export function GatedContent() {
   return (
@@ -18,16 +18,12 @@ export function GatedContent() {
         <p className="text-muted-foreground leading-relaxed">Join the Lumina Insights community to unlock our full archive of reports, engineering guides, and architectural blueprints.</p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-          <SignUpButton mode="modal">
-            <Button size="lg" className="rounded-full px-8 font-bold w-full sm:w-auto">
-              Create Free Account
-            </Button>
-          </SignUpButton>
-          <SignInButton mode="modal">
-            <Button size="lg" variant="outline" className="rounded-full px-8 font-bold w-full sm:w-auto">
-              Sign In
-            </Button>
-          </SignInButton>
+          <Button asChild size="lg" className="rounded-full px-8 font-bold w-full sm:w-auto">
+            <Link href="/sign-up">Create Free Account</Link>
+          </Button>
+          <Button asChild size="lg" variant="outline" className="rounded-full px-8 font-bold w-full sm:w-auto">
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
         </div>
       </div>
     </div>

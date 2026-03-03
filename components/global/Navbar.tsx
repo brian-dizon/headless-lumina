@@ -5,6 +5,7 @@ import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./MobileNav";
 import { UserProfile } from "./UserProfile";
 import Link from "next/link";
+import { SignedIn } from "@clerk/nextjs";
 
 export function Navbar() {
   return (
@@ -14,7 +15,7 @@ export function Navbar() {
           <MobileNav />
           <Logo />
         </div>
-        
+
         <div className="flex items-center gap-2 md:gap-8">
           {/* Navigation Links - Hidden on mobile, visible on tablet+ */}
           <div className="hidden md:flex gap-8 text-sm font-bold uppercase tracking-wider text-muted-foreground/80">
@@ -27,8 +28,13 @@ export function Navbar() {
             <Link href="/about" className="hover:text-primary transition-colors py-2 border-b-2 border-transparent hover:border-primary">
               About
             </Link>
+            <SignedIn>
+              <Link href="/vault" className="hover:text-primary transition-colors py-2 border-b-2 border-transparent hover:border-primary text-primary">
+                My Vault
+              </Link>
+            </SignedIn>
           </div>
-          
+
           <div className="flex items-center gap-3 pl-4 border-l border-border/50">
             <ModeToggle />
             <UserProfile />
