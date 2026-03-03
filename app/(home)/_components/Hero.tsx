@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import heroIllustration from "@/assets/images/hero-illustration.svg";
 
 export function Hero() {
   return (
@@ -19,7 +20,7 @@ export function Hero() {
             {/* Mobile Hero Illustration: Only visible on small screens */}
             <div className="lg:hidden relative w-full aspect-square max-w-xl mx-auto mb-10">
               <Image 
-                src="/images/hero-illustration.svg" 
+                src={heroIllustration} 
                 alt="Tech Company Illustration" 
                 fill
                 priority
@@ -42,7 +43,7 @@ export function Hero() {
           {/* Desktop Hero Illustration: Only visible on large screens */}
           <div className="hidden lg:block relative lg:w-[600px] lg:h-[600px] mx-auto lg:mx-0">
             <Image 
-              src="/images/hero-illustration.svg" 
+              src={heroIllustration} 
               alt="Tech Company Illustration" 
               fill
               priority

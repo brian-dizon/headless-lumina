@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { ContactForm } from "./ContactForm";
+import onlineTechTalks from "@/assets/images/online-tech-talks-animate.svg";
 
 export function Footer() {
     return (
@@ -13,7 +14,7 @@ export function Footer() {
                     <div className="relative w-full aspect-square max-w-xl mx-auto lg:mx-0 lg:max-w-none hover:scale-[1.02] transition-transform duration-500">
                         <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full" />
                         <Image
-                            src="/images/online-tech-talks-animate.svg"
+                            src={onlineTechTalks}
                             alt="Online Tech Talks Illustration"
                             fill
                             className="object-contain relative z-10"

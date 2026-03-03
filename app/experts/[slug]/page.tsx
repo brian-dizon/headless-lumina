@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { BookOpen, Linkedin, Twitter, Globe } from "lucide-react";
 import { SingleExpertData, AllExpertSlugsData } from "@/types";
+import { getProxyImage } from "@/lib/utils";
 
 export default async function ExpertSinglePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug: expertSlug } = await params;
@@ -35,7 +36,7 @@ export default async function ExpertSinglePage({ params }: { params: Promise<{ s
             <div className="relative group mx-auto md:mx-0">
               <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-110 opacity-50 group-hover:opacity-100 transition-opacity duration-1000" />
               <Avatar className="h-64 w-64 ring-8 ring-white dark:ring-slate-800 shadow-2xl relative z-10 animate-in fade-in zoom-in duration-1000">
-                <AvatarImage src={expertProfile?.headshot?.node?.sourceUrl} className="object-cover" />
+                <AvatarImage src={getProxyImage(expertProfile?.headshot?.node?.sourceUrl)} className="object-cover" />
                 <AvatarFallback className="text-6xl font-black bg-primary/5 text-primary">{title.charAt(0)}</AvatarFallback>
               </Avatar>
             </div>

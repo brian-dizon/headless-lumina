@@ -10,6 +10,7 @@ import { GatedContent } from "@/components/global/GatedContent";
 import { SingleResourceData, AllResourceSlugsData } from "@/types";
 import { AISummary } from "@/components/resources/AISummary";
 import { SaveButton } from "@/components/resources/SaveButton";
+import { getProxyImage } from "@/lib/utils";
 import Image from "next/image";
 import { Calendar, Clock, History, User } from "lucide-react";
 
@@ -132,7 +133,7 @@ export default async function SingleResourcePage({ params, searchParams }: { par
             {featuredImage?.node?.sourceUrl && (
               <div className="relative w-full aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/50">
                 <Image
-                  src={featuredImage.node.sourceUrl}
+                  src={getProxyImage(featuredImage.node.sourceUrl)}
                   alt={featuredImage.node.altText || title}
                   fill
                   priority

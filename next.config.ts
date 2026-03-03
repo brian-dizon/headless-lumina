@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/cms-assets/:path*",
+        destination: "https://lumina.briandizon.com/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

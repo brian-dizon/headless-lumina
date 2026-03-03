@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ArrowRight, Twitter, Linkedin, Globe } from "lucide-react";
+import { getProxyImage } from "@/lib/utils";
 
 interface ExpertCardProps {
   expert: {
@@ -37,7 +38,7 @@ export function ExpertCard({ expert }: ExpertCardProps) {
             <Avatar className="h-28 w-28 ring-4 ring-background shadow-2xl transition-all duration-500 ease-in-out group-hover:ring-primary/20 scale-100 group-hover:scale-105 overflow-hidden">
               {expertProfile?.headshot?.node?.sourceUrl ? (
                 <Image 
-                  src={expertProfile.headshot.node.sourceUrl}
+                  src={getProxyImage(expertProfile.headshot.node.sourceUrl)}
                   alt={expertProfile.headshot.node.altText || title}
                   width={112}
                   height={112}

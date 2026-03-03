@@ -38,8 +38,6 @@ export default function RootLayout({
       <html lang="en" suppressHydrationWarning>
         <head>
           <link rel="preconnect" href="https://www.transparenttextures.com" />
-          <link rel="preconnect" href="https://lumina.briandizon.com" />
-          <link rel="dns-prefetch" href="https://lumina.briandizon.com" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

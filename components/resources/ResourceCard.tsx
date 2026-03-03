@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { WPResource } from "@/types";
 import { SaveButton } from "./SaveButton";
+import { getProxyImage } from "@/lib/utils";
 
 interface ResourceCardProps {
   resource: WPResource;
@@ -65,7 +66,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
                   <Avatar key={expert.title} className="h-8 w-8 ring-2 ring-background shrink-0 overflow-hidden">
                     {expert.expertProfile?.headshot?.node?.sourceUrl ? (
                       <Image 
-                        src={expert.expertProfile.headshot.node.sourceUrl}
+                        src={getProxyImage(expert.expertProfile.headshot.node.sourceUrl)}
                         alt={expert.expertProfile.headshot.node.altText || expert.title}
                         width={32}
                         height={32}
