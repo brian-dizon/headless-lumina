@@ -1,4 +1,7 @@
+"use client";
+
 import { SignUp } from "@clerk/nextjs";
+import { Suspense } from "react";
 
 export default function SignUpPage() {
     return (
@@ -9,18 +12,20 @@ export default function SignUpPage() {
                     <p className="text-muted-foreground">Create an account to unlock premium resources</p>
                 </div>
                 <div className="flex justify-center">
-                    <SignUp
-                        routing="path"
-                        path="/sign-up"
-                        appearance={{
-                            elements: {
-                                rootBox: "w-full",
-                                card: "bg-background border-border shadow-sm shadow-slate-200/20 dark:shadow-slate-900/50 w-full",
-                                headerTitle: "hidden",
-                                headerSubtitle: "hidden",
-                            }
-                        }}
-                    />
+                    <Suspense fallback={<div className="h-[500px] w-full animate-pulse bg-muted rounded-2xl" />}>
+                        <SignUp
+                            routing="path"
+                            path="/sign-up"
+                            appearance={{
+                                elements: {
+                                    rootBox: "w-full",
+                                    card: "bg-background border-border shadow-sm shadow-slate-200/20 dark:shadow-slate-900/50 w-full",
+                                    headerTitle: "hidden",
+                                    headerSubtitle: "hidden",
+                                }
+                            }}
+                        />
+                    </Suspense>
                 </div>
             </div>
         </div>

@@ -79,6 +79,7 @@ export function SaveButton({ slug, className }: SaveButtonProps) {
         className
       )}
       title={activeSavedState ? "Remove from Reading List" : "Add to Reading List"}
+      aria-label={activeSavedState ? "Remove from Reading List" : "Add to Reading List"}
     >
       {isPending ? (
         <Loader2 className="h-4 w-4 animate-spin text-destructive" />

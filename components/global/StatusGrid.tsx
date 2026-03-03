@@ -76,7 +76,7 @@ export async function StatusGrid() {
                       <span className="text-[10px] font-bold text-white uppercase tracking-wider">{config.text}</span>
                     </div>
                   </div>
-                  <h4 className="text-slate-200 font-bold text-sm tracking-tight">{service.name}</h4>
+                  <h3 className="text-slate-200 font-bold text-sm tracking-tight">{service.name}</h3>
                   <p className="text-slate-500 text-[9px] font-black uppercase tracking-tighter mt-1">
                     {service.provider} Architecture
                   </p>

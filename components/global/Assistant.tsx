@@ -159,6 +159,7 @@ export function Assistant() {
       {!isOpen && (
         <Button 
           onClick={() => setOpen(true)}
+          aria-label="Toggle AI Assistant"
           className="h-14 w-14 rounded-2xl shadow-2xl shadow-primary/40 flex items-center justify-center group transition-all hover:scale-110 active:scale-95"
         >
           <div className="relative">

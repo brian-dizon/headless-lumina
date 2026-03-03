@@ -23,6 +23,8 @@ export function Hero() {
                 alt="Tech Company Illustration" 
                 fill
                 priority
+                fetchPriority="high"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain"
               />
             </div>
@@ -44,6 +46,8 @@ export function Hero() {
               alt="Tech Company Illustration" 
               fill
               priority
+              fetchPriority="high"
+              sizes="600px"
               className="object-contain"
             />
           </div>

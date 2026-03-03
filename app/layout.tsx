@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Suspense } from "react";
 import { ThemeProvider } from "@/components/global/theme-provider";
 import { Navbar } from "@/components/global/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -35,11 +36,18 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <link rel="preconnect" href="https://www.transparenttextures.com" />
+          <link rel="preconnect" href="https://lumina.briandizon.com" />
+          <link rel="dns-prefetch" href="https://lumina.briandizon.com" />
+        </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <TooltipProvider>
               <Navbar />
-              <div className="flex-grow">{children}</div>
+              <Suspense fallback={<div className="flex-grow animate-pulse bg-slate-50 dark:bg-slate-950" />}>
+                <div className="flex-grow">{children}</div>
+              </Suspense>
               <Footer />
               <Assistant />
               <Toaster position="top-center" />

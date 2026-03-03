@@ -25,6 +25,7 @@ export function FeaturedResources() {
             eyebrow="Latest Insights"
             title="From the Lab"
             description="Freshly published reports and engineering guides from the Lumina team."
+            as="h2"
           />
         </div>
         <Button variant="link" className="font-bold text-primary p-0 h-auto group" asChild>

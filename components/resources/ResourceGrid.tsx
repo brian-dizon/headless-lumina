@@ -111,7 +111,7 @@ export async function ResourceGrid({
               </Button>
             )}
 
-            <div className="bg-muted px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground shadow-inner">
+            <div className="bg-muted px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-foreground shadow-inner">
               Page {page} of {totalPages}
             </div>
 
@@ -133,7 +133,7 @@ export async function ResourceGrid({
             )}
           </div>
           
-          <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest opacity-60">
+          <p className="text-[10px] text-foreground font-medium uppercase tracking-widest">
             Showing {nodes.length} of {totalPosts} Filtered Resources
           </p>
         </div>
