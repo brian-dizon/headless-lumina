@@ -1,7 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { WPResource } from "@/types";
 import { SaveButton } from "./SaveButton";
 
@@ -61,14 +62,20 @@ export function ResourceCard({ resource }: ResourceCardProps) {
             <div className="flex items-center">
               <div className="flex -space-x-3">
                 {visibleExperts.map((expert) => (
-                  <Avatar key={expert.title} className="h-8 w-8 ring-2 ring-background shrink-0">
-                    <AvatarImage 
-                      src={expert.expertProfile?.headshot?.node?.sourceUrl ?? undefined}
-                      alt={expert.expertProfile?.headshot?.node?.altText ?? expert.title}
-                    />
-                    <AvatarFallback className="bg-primary/10 text-primary text-[10px]">
-                      {expert.title.charAt(0)}
-                    </AvatarFallback>
+                  <Avatar key={expert.title} className="h-8 w-8 ring-2 ring-background shrink-0 overflow-hidden">
+                    {expert.expertProfile?.headshot?.node?.sourceUrl ? (
+                      <Image 
+                        src={expert.expertProfile.headshot.node.sourceUrl}
+                        alt={expert.expertProfile.headshot.node.altText || expert.title}
+                        width={32}
+                        height={32}
+                        className="aspect-square h-full w-full object-cover"
+                      />
+                    ) : (
+                      <AvatarFallback className="bg-primary/10 text-primary text-[10px]">
+                        {expert.title.charAt(0)}
+                      </AvatarFallback>
+                    )}
                   </Avatar>
                 ))}
                 

@@ -1,6 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ArrowRight, Twitter, Linkedin, Globe } from "lucide-react";
 
 interface ExpertCardProps {
@@ -33,15 +34,20 @@ export function ExpertCard({ expert }: ExpertCardProps) {
           {/* Headshot with Premium Border */}
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full scale-0 group-hover:scale-110 transition-all duration-700 ease-in-out" />
-            <Avatar className="h-28 w-28 ring-4 ring-background shadow-2xl transition-all duration-500 ease-in-out group-hover:ring-primary/20 scale-100 group-hover:scale-105">
-              <AvatarImage 
-                src={expertProfile?.headshot?.node?.sourceUrl} 
-                alt={expertProfile?.headshot?.node?.altText || title}
-                className="object-cover"
-              />
-              <AvatarFallback className="text-2xl font-black bg-primary/5 text-primary">
-                {title.charAt(0)}
-              </AvatarFallback>
+            <Avatar className="h-28 w-28 ring-4 ring-background shadow-2xl transition-all duration-500 ease-in-out group-hover:ring-primary/20 scale-100 group-hover:scale-105 overflow-hidden">
+              {expertProfile?.headshot?.node?.sourceUrl ? (
+                <Image 
+                  src={expertProfile.headshot.node.sourceUrl}
+                  alt={expertProfile.headshot.node.altText || title}
+                  width={112}
+                  height={112}
+                  className="aspect-square h-full w-full object-cover"
+                />
+              ) : (
+                <AvatarFallback className="text-2xl font-black bg-primary/5 text-primary">
+                  {title.charAt(0)}
+                </AvatarFallback>
+              )}
             </Avatar>
           </div>
 

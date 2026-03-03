@@ -7,7 +7,7 @@ import { Navbar } from "@/components/global/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Footer } from "@/components/global/Footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Assistant } from "@/components/global/Assistant";
+import { ClientAssistant } from "@/components/global/ClientAssistant";
 import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
@@ -49,7 +49,7 @@ export default function RootLayout({
                 <div className="flex-grow">{children}</div>
               </Suspense>
               <Footer />
-              <Assistant />
+              <ClientAssistant />
               <Toaster position="top-center" />
             </TooltipProvider>
           </ThemeProvider>
