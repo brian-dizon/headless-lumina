@@ -100,6 +100,8 @@ export const GET_ALL_TOPIC_SLUGS = gql`
   query GetAllTopics {
     topics(first: 100) {
       nodes {
+        id
+        name
         slug
       }
     }
