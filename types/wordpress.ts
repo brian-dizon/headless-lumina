@@ -46,6 +46,9 @@ export interface WPResource {
   title: string;
   slug: string;
   content?: string;
+  date?: string;
+  modified?: string;
+  featuredImage?: WPMediaItem | null;
   resourceDetails?: {
     subtitle?: string | null;
     isPremium?: boolean | null;

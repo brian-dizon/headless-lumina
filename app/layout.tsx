@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Footer } from "@/components/global/Footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Assistant } from "@/components/global/Assistant";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,6 +22,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Lumina Insights | Enterprise Knowledge Hub",
   description: "Expertly curated reports, guides, and case studies for the modern enterprise.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +42,7 @@ export default function RootLayout({
               <div className="flex-grow">{children}</div>
               <Footer />
               <Assistant />
+              <Toaster position="top-center" />
             </TooltipProvider>
           </ThemeProvider>
         </body>

@@ -30,6 +30,14 @@ export const RESOURCE_CARD_FIELDS = gql`
   fragment ResourceCardFields on Resource {
     title
     slug
+    date
+    modified
+    featuredImage {
+      node {
+        sourceUrl
+        altText
+      }
+    }
     resourceDetails {
       subtitle
       isPremium

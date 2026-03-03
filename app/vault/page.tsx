@@ -30,7 +30,7 @@ export default async function VaultPage() {
 
     return (
         <main className="min-h-[80vh] py-24">
-            <div className="container mx-auto px-4 max-w-5xl">
+            <div className="container mx-auto px-4 max-w-7xl">
                 <header className="mb-12 border-b pb-8 text-center md:text-left">
                     <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
                         Welcome back, {user.firstName || "Member"}

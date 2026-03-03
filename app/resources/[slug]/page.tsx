@@ -10,6 +10,8 @@ import { GatedContent } from "@/components/global/GatedContent";
 import { SingleResourceData, AllResourceSlugsData } from "@/types";
 import { AISummary } from "@/components/resources/AISummary";
 import { SaveButton } from "@/components/resources/SaveButton";
+import Image from "next/image";
+import { Calendar, Clock, History, User } from "lucide-react";
 
 export default async function SingleResourcePage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ id?: string }> }) {
   // Await parameters
@@ -41,8 +43,21 @@ export default async function SingleResourcePage({ params, searchParams }: { par
     notFound();
   }
 
-  const { title, content, resourceDetails, topics } = data.resource;
+  const { title, content, resourceDetails, topics, featuredImage, date, modified } = data.resource;
   const isPremium = resourceDetails?.isPremium;
+  const experts = resourceDetails?.expertRelationship?.nodes || [];
+
+  // Logic: Calculate estimated reading time (200 words per minute)
+  const wordCount = content?.split(/\s+/).length || 0;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
   return (
     <main className="min-h-screen">
@@ -76,7 +91,36 @@ export default async function SingleResourcePage({ params, searchParams }: { par
           </div>
 
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white mb-4">{title}</h1>
-          <p className="text-xl text-muted-foreground leading-relaxed">{resourceDetails?.subtitle}</p>
+          <p className="text-xl text-muted-foreground leading-relaxed mb-8">{resourceDetails?.subtitle}</p>
+
+          {/* Metadata Bar */}
+          <div className="flex flex-wrap items-center gap-y-4 gap-x-8 text-[11px] font-bold uppercase tracking-widest text-muted-foreground/70">
+            {experts.length > 0 && (
+              <div className="flex items-center gap-2">
+                <User className="h-3.5 w-3.5 text-primary" />
+                <span>{experts[0].title} {experts.length > 1 && `+ ${experts.length - 1}`}</span>
+              </div>
+            )}
+            
+            {date && (
+              <div className="flex items-center gap-2">
+                <Calendar className="h-3.5 w-3.5" />
+                <span>Published {formatDate(date)}</span>
+              </div>
+            )}
+
+            {modified && modified !== date && (
+              <div className="flex items-center gap-2">
+                <History className="h-3.5 w-3.5" />
+                <span>Updated {formatDate(modified)}</span>
+              </div>
+            )}
+
+            <div className="flex items-center gap-2">
+              <Clock className="h-3.5 w-3.5" />
+              <span>{readingTime} Min Read</span>
+            </div>
+          </div>
         </header>
 
         {/* 4. Gated Logic: Premium vs Public */}
@@ -84,6 +128,19 @@ export default async function SingleResourcePage({ params, searchParams }: { par
           <GatedContent />
         ) : (
           <>
+            {/* Featured Image */}
+            {featuredImage?.node?.sourceUrl && (
+              <div className="relative w-full aspect-video rounded-3xl overflow-hidden mb-12 shadow-2xl border border-border/50">
+                <Image
+                  src={featuredImage.node.sourceUrl}
+                  alt={featuredImage.node.altText || title}
+                  fill
+                  priority
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+            )}
+
             <AISummary content={content ?? ""} title={title ?? ""} />
             <article
               className="prose dark:prose-invert prose-slate prose-lg max-w-none 
