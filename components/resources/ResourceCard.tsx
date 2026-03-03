@@ -72,7 +72,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
         </div>
 
         {/* The Title Link is the "Main" link. It uses the 'after' pseudo-element to cover the whole card. */}
-        <CardTitle className="text-xl leading-snug group-hover:text-primary transition-colors">
+        <CardTitle className="text-xl leading-snug text-slate-900 dark:text-white group-hover:text-primary">
           <Link href={`/resources/${resource.slug}`} className="after:absolute after:inset-0 after:z-10 focus:outline-none">
             {title}
           </Link>

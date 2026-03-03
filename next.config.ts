@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         port: "10073",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "lumina.briandizon.com",
+        pathname: "/**",
+      },
     ],
   },
 };

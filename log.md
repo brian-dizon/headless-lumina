@@ -31,8 +31,7 @@ This document tracks the architectural decisions, milestones, and technical prog
 ## 🎭 Milestone 6: Global Branding & Theme Control
 - Implemented sticky `Navbar.tsx` and high-performance `Logo.tsx`.
 - Added **Single-Click Dark Mode Toggle** with smooth CSS transitions (`0.4s fade`).
-- Resolved `prose` readability with `dark:prose-invert`.
-- Fixed `ThemeProvider` animation blocking by removing `disableTransitionOnChange`.
+- Applied `dark:prose-invert` for readability in dark mode.
 
 ## 🏷️ Milestone 7: Static Taxonomy (Topic) Pages
 - Implemented the **"Link Overlay" Pattern** in `ResourceCard.tsx` for nested links (Resources vs. Topics).
@@ -43,13 +42,22 @@ This document tracks the architectural decisions, milestones, and technical prog
 - **Refactoring**: Migrated full resource grid to `/resources` and transformed `/` into a high-end corporate landing page.
 - **Hero Section**: Implemented a responsive grid with a 600x600px tech illustration.
 - **Mobile Navigation**: Added a slide-out `MobileNav.tsx` using Shadcn/UI's `Sheet` component.
-- **UX Polish**: Optimized hero illustration ordering (Text -> Image -> Buttons) for mobile devices.
+
+## 👥 Milestone 9: The Expert Ecosystem & Reverse Relationships
+- **Expert Directory**: Built a premium directory at `/experts` featuring animated `ExpertCard` components with easing and depth.
+- **Dynamic Profiles**: Created `app/experts/[slug]/page.tsx` featuring a split-hero layout and authored resources feed.
+- **Relationship Logic**: Implemented a "Senior Workaround" using native JS `.filter()` and `.some()` to bridge schema limitations for reverse relationships.
+
+## 🧱 Milestone 10: Atomic Block Rendering (The Gutenberg Bridge)
+- **Architecture**: Implemented a `BlockRenderer.tsx` engine to map WordPress Gutenberg blocks to specific React components.
+- **Structured Data**: Utilized GraphQL fragments (`... on CoreHeading`) to fetch specific block attributes like heading levels and anchor IDs.
+- **Hydration Mastery**: Solved the "Double Nesting" hydration mismatch by using wrapper `div`s and Tailwind child selectors (`[&_h2]:...`) to style WordPress-provided HTML.
+- **Dual Content Strategy**: Established the distinction between the "Content Blob" approach (for standard resources) and the "Block Pipeline" approach (for high-flexibility marketing pages like `/about`).
 
 ---
 
 ## 🅿️ Parking Lot (Future Tasks)
-- [ ] **Expert Hub:** List of all experts and individual profile pages.
 - [ ] **Pagination/Load More:** Handling large datasets in the Resource Grid.
-- [ ] **Block-to-Component Pipeline:** Mapping Gutenberg/ACF blocks to React components.
+- [ ] **Next.js Draft Mode:** Live previews for WordPress editors.
 - [ ] **Search & Filtering:** Real-time client-side queries.
 - [ ] **Gated Content:** Integration with Clerk for "Premium" resources.

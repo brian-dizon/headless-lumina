@@ -4,7 +4,14 @@ import { notFound } from "next/navigation";
 import { ResourceCard } from "@/components/resources/ResourceCard";
 import { PageHeader } from "@/components/global/PageHeader";
 
-// 1. The GraphQL Query: We fetch the Topic AND its connected Resources
+/**
+ * 1. The Relational Collection Query
+ * This query is more complex than a standard post fetch.
+ * - We target the 'topics' taxonomy.
+ * - We filter by slug using the 'where' argument.
+ * - We "nest" the resources query inside the topic node. This is the 
+ *   GraphQL way of saying: "Give me this topic, and all posts linked to it."
+ */
 const GET_RESOURCES_BY_TOPIC = gql`
   query GetResourcesByTopic($topicSlug: [String]!) {
     topics(where: { slug: $topicSlug }) {
@@ -47,6 +54,13 @@ const GET_RESOURCES_BY_TOPIC = gql`
   }
 `;
 
+/**
+ * 2. Data Integrity Interfaces
+ * We define the structure of the WordPress response.
+ * Note the use of 'TopicResource' interface—this ensures that the 
+ * resources fetched here match the 'ResourceCard' prop requirements
+ * exactly, preventing runtime UI errors.
+ */
 interface TopicPageData {
   topics: {
     nodes: Array<{
@@ -96,17 +110,37 @@ interface GetAllTopicsData {
   };
 }
 
+/**
+ * 3. The Topic Archive Page (Main Controller)
+ * Handles the logic for rendering a specific category/topic archive.
+ */
 export default async function TopicPage({ params }: { params: Promise<{ slug: string }> }) {
+  /**
+   * 3a. Route Parameter Resolution
+   * In Next.js 15, 'params' is a Promise. We must 'await' it to 
+   * access the dynamic slug from the URL (e.g., 'cloud-computing').
+   */
   const { slug } = await params;
 
-  // Fetch data from WordPress (passing slug inside an array [])
+  /**
+   * 3b. Data Fetching via Singleton
+   * We pass the 'slug' variable to GraphQL. 
+   * IMPORTANT: We wrap the slug in an array [slug] because the 
+   * WPGraphQL 'where' filter for taxonomies expects an array of strings.
+   */
   const { data } = await getClient().query<TopicPageData>({
     query: GET_RESOURCES_BY_TOPIC,
     variables: { topicSlug: [slug] },
   });
 
+  // Extract the specific topic node (the first and only match)
   const topic = data?.topics?.nodes?.[0];
 
+  /**
+   * 3c. The "Defensive" 404
+   * If an editor deletes a topic in WP but the URL still exists in 
+   * a user's browser, we catch the 'null' response and show a 404.
+   */
   if (!topic) {
     return notFound();
   }
@@ -116,10 +150,23 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
   return (
     <main className="min-h-screen">
       <div className="container mx-auto py-16 px-4 max-w-7xl">
-        {/* Topic Header */}
-        <PageHeader eyebrow="Browse Topic" title={topic.name} description={topic.description || `Explore our latest insights and reports on ${topic.name}.`} />
+        
+        {/** 
+         * 4. Page Branding
+         * Reuses the global PageHeader. If the topic has no description 
+         * in WordPress, we provide a smart fallback string.
+         */}
+        <PageHeader 
+          eyebrow="Browse Topic" 
+          title={topic.name} 
+          description={topic.description || `Explore our latest insights and reports on ${topic.name}.`} 
+        />
 
-        {/* The Results Grid */}
+        {/** 
+         * 5. The Filtered Grid
+         * If resources are found, we map them into cards. 
+         * If not, we show a professional 'Empty State'.
+         */}
         {resources.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {resources.map((resource) => (
@@ -138,7 +185,12 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
   );
 }
 
-// 2. Static Optimization: Pre-build all topic pages
+/**
+ * 6. Static Site Generation (Build Optimization)
+ * This function crawls your entire WordPress taxonomy at Build Time.
+ * It ensures that every topic page is generated as a static HTML file
+ * on the server, making the site load instantly for the user.
+ */
 export async function generateStaticParams() {
   const { data } = await getClient().query<GetAllTopicsData>({
     query: gql`
@@ -156,6 +208,7 @@ export async function generateStaticParams() {
     return [];
   }
 
+  // Return the array of slugs in the format Next.js requires
   return data.topics.nodes.map((topic) => ({
     slug: topic.slug,
   }));
