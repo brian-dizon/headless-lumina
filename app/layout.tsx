@@ -3,12 +3,16 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Suspense } from "react";
 import { ThemeProvider } from "@/components/global/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/global/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Footer } from "@/components/global/Footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ClientAssistant } from "@/components/global/ClientAssistant";
-import { Toaster } from "@/components/ui/sonner";
+
+const SmartSearch = dynamic(() => import("@/components/global/SmartSearch").then(mod => mod.SmartSearch));
+
+const ClientAssistant = dynamic(() => import("@/components/global/ClientAssistant").then(mod => mod.ClientAssistant));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

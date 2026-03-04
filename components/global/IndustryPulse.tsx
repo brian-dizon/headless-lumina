@@ -16,7 +16,7 @@ export async function IndustryPulse() {
   }
 
   return (
-    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent overflow-hidden">
+    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-transparent overflow-hidden" id="industry-pulse">
       <CardHeader className="pb-4">
         <div className="flex items-center justify-between mb-2">
           <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20 font-bold uppercase tracking-tighter text-[10px]">
@@ -29,7 +29,7 @@ export async function IndustryPulse() {
           Real-time insights and architectural trends from the global tech community.
         </CardDescription>
       </CardHeader>
-      
+
       <CardContent className="space-y-4">
         {data.hits.map((item) => (
           <a

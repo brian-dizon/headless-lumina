@@ -4,7 +4,12 @@ import { Logo } from "./Logo";
 import { ModeToggle } from "./mode-toggle";
 import { MobileNav } from "./MobileNav";
 import { UserProfile } from "./UserProfile";
-import { SmartSearch } from "./SmartSearch";
+import dynamic from "next/dynamic";
+
+const SmartSearch = dynamic(() => import("./SmartSearch").then(mod => mod.SmartSearch), {
+  ssr: false,
+  loading: () => <div className="h-9 w-9 xl:w-60 bg-muted animate-pulse rounded-md" />,
+});
 import Link from "next/link";
 import { SignedIn } from "@clerk/nextjs";
 
