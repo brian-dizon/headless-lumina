@@ -14,34 +14,34 @@ export async function StatusGrid() {
   const getStatusConfig = (status: string) => {
     switch (status) {
       case "operational":
-        return { 
-          color: "bg-emerald-500", 
-          text: "Healthy", 
-          icon: <CheckCircle2 className="h-4 w-4 text-emerald-500" /> 
+        return {
+          color: "bg-emerald-500",
+          text: "Healthy",
+          icon: <CheckCircle2 className="h-4 w-4 text-emerald-500" />
         };
       case "degraded":
-        return { 
-          color: "bg-amber-500", 
-          text: "Degraded", 
-          icon: <AlertTriangle className="h-4 w-4 text-amber-500" /> 
+        return {
+          color: "bg-amber-500",
+          text: "Degraded",
+          icon: <AlertTriangle className="h-4 w-4 text-amber-500" />
         };
       default:
-        return { 
-          color: "bg-rose-500", 
-          text: "Critical", 
-          icon: <ShieldAlert className="h-4 w-4 text-rose-500" /> 
+        return {
+          color: "bg-rose-500",
+          text: "Critical",
+          icon: <ShieldAlert className="h-4 w-4 text-rose-500" />
         };
     }
   };
 
   return (
-    <div className="w-full bg-slate-950 py-12 border-y border-white/5 relative overflow-hidden group">
+    <div className="w-full bg-slate-950 py-12 border-y border-white/5 relative overflow-hidden group min-h-[450px] md:min-h-[250px]">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
-      
+
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
-          
+
           {/* Header */}
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-2xl">
@@ -65,8 +65,8 @@ export async function StatusGrid() {
             {services.map((service) => {
               const config = getStatusConfig(service.status);
               return (
-                <div 
-                  key={service.id} 
+                <div
+                  key={service.id}
                   className="bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/20 p-4 rounded-2xl transition-all duration-300 group/card cursor-help"
                 >
                   <div className="flex items-start justify-between mb-2">

@@ -7,12 +7,12 @@ import { FeaturedResources } from "./_components/FeaturedResources";
 export default function Home() {
   return (
     <main className="min-h-screen">
-      
+
       {/* 1. Hero Section */}
       <Hero />
 
       {/* 2. Global Infrastructure Status (Command Center Pizzazz) */}
-      <Suspense fallback={<div className="h-48 w-full bg-slate-950 animate-pulse" />}>
+      <Suspense fallback={<div className="h-[450px] md:h-[250px] w-full bg-slate-950 animate-pulse" />}>
         <StatusGrid />
       </Suspense>
 
@@ -20,7 +20,9 @@ export default function Home() {
       <Features />
 
       {/* 4. Featured Resources Section */}
-      <FeaturedResources />
+      <Suspense fallback={<div className="h-[1000px] md:h-[600px] w-full bg-slate-50 dark:bg-slate-900 animate-pulse" />}>
+        <FeaturedResources />
+      </Suspense>
 
     </main>
   );
