@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 export async function StatusGrid() {
   const services = await getGlobalInfrastructureStatus();
 
-  if (!services.length) return <div className="min-h-[450px] md:min-h-[250px] bg-slate-950" />;
+  if (!services.length) return <div className="min-h-[450px] md:min-h-[200px] bg-slate-950" />;
 
   const getStatusConfig = (status: string) => {
     switch (status) {

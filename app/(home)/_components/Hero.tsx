@@ -6,7 +6,7 @@ import heroIllustration from "@/assets/images/hero-illustration.svg";
 
 export function Hero() {
   return (
-    <section className="relative py-24 border-b bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/50 dark:to-background overflow-hidden min-h-[600px] lg:min-h-[700px]">
+    <section className="relative py-24 border-b bg-gradient-to-b from-slate-50 to-white dark:from-slate-900/50 dark:to-background overflow-hidden min-h-[600px] lg:min-h-[1070px]">
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="max-w-3xl">

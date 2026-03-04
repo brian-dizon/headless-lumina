@@ -2,7 +2,7 @@ import { BookOpen, Users, ShieldCheck } from "lucide-react";
 
 export function Features() {
   return (
-    <section className="py-20 bg-white dark:bg-background border-b">
+    <section className="py-20 bg-white dark:bg-background border-b min-h-[500px]">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div className="flex flex-col gap-4">
