@@ -49,9 +49,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <TooltipProvider>
               <Navbar />
-              <Suspense fallback={<div className="flex-grow animate-pulse bg-slate-50 dark:bg-slate-950" />}>
-                <div className="flex-grow">{children}</div>
-              </Suspense>
+              <div className="flex-grow">{children}</div>
               <Footer />
               <ClientAssistant />
               <Toaster position="top-center" />
