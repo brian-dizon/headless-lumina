@@ -12,7 +12,7 @@ export async function IndustryPulse() {
   const data = await getIndustryPulse();
 
   if (!data.hits || data.hits.length === 0) {
-    return null; // Don't render if there's no data
+    return <div className="min-h-[500px]" />; // Reserve space if used in layout
   }
 
   return (

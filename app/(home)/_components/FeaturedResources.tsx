@@ -8,8 +8,8 @@ import { ArrowRight } from "lucide-react";
 // Skeleton Loader for better UX during the fetch
 function GridSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse">
-      {[...Array(3)].map((_, i) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-pulse min-h-[1000px] md:min-h-[600px]">
+      {[...Array(6)].map((_, i) => (
         <div key={i} className="h-64 bg-slate-100 dark:bg-slate-800 rounded-xl" />
       ))}
     </div>
@@ -21,7 +21,7 @@ export function FeaturedResources() {
     <div className="container mx-auto py-24 px-4 max-w-7xl">
       <div className="flex items-end justify-between mb-12 gap-4 flex-wrap">
         <div>
-          <PageHeader 
+          <PageHeader
             eyebrow="Latest Insights"
             title="From the Lab"
             description="Freshly published reports and engineering guides from the Lumina team."
