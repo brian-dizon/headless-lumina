@@ -37,7 +37,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <head>
-          <link rel="preconnect" href="https://www.transparenttextures.com" />
+          <link rel="preconnect" href="https://www.transparenttextures.com" crossOrigin="anonymous" />
         </head>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
